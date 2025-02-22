@@ -1,21 +1,16 @@
-import React from 'react'
+import React, {useState} from 'react'
 import axios from 'axios'
 const Axiosfilesending =  () => {
   const [image, setImage] = useState("");
     const uploadImage = async () => {
-      const data = new FormData();
-      data.append("file", image);
-      data.append("axious", "axios for file sending");
-      data.append("Abhishek", "pandey");
-     await axios.post("http://localhost:5050/image", {
-        body: data,
+      const formdata = new FormData();
+      formdata.append("file", image);
+      formdata.append("axious", "axios for file sending");
+      formdata.append("Abhishek", "pandey");
+   const {data} =  await axios.post("http://localhost:5050/image", formdata, {
+      
         enctype: "multipart/form-data",
       })
-        .then((resp) => resp.json())
-        .then((data) => {
-          console.log(data);
-        })
-        .catch((err) => console.log(err));
     };
   
     return (
