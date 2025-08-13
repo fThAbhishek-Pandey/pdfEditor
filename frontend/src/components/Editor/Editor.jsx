@@ -1,4 +1,9 @@
-// src/components/Editor.jsx
+/*
+
+
+
+
+*/
 import React from "react";
 import PDFPreview from "../PDFPreview.jsx";
 import PageCanvas from "./PageCanvas.jsx";

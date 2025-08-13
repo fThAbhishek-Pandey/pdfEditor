@@ -1,4 +1,7 @@
-// src/components/canvas/PageCanvas.jsx
+/**
+ *
+ *
+ */
 import React, { useContext } from "react";
 import { Rnd } from "react-rnd";
 import { EditorContext } from "../../contexts/EditorContext.jsx";

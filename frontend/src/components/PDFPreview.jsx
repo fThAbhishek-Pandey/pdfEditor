@@ -1,4 +1,8 @@
-// src/components/PDFPreview.jsx
+/*
+
+
+
+*/
 import React, { useContext } from "react";
 import { EditorContext } from "../contexts/EditorContext";
 import { ExportPDF } from "../services/pdfService.js";
@@ -10,6 +14,10 @@ const PDFPreview = () => {
     imgFields,
     setFields,
     setImgFields,
+    setQrCode,
+    qrCode,
+    dateField,
+    pageRef,
   } = useContext(EditorContext);
 
   const handleDownload = async () => {
@@ -18,7 +26,7 @@ const PDFPreview = () => {
       return;
     }
     try {
-      await ExportPDF(bgImage, fields, imgFields);
+      await ExportPDF(bgImage, fields, imgFields, qrCode, dateField, pageRef);
     } catch (error) {
       console.error("PDF export failed:", error);
     }
@@ -70,9 +78,7 @@ const PDFPreview = () => {
               {f.type === "text" && (
                 <span style={{ whiteSpace: "pre-wrap" }}>{f.text}</span>
               )}
-              {f.type === "date" && (
-                <span>{f.date}</span>
-              )}
+              {f.type === "date" && <span>{f.date}</span>}
               {f.type === "qr" && (
                 <img
                   src={`https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(
