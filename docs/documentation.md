@@ -15,7 +15,77 @@ The PDF Editor application is a browser-based tool built with **React** and **Vi
 * **External Systems** (localStorage, PDF.js)
 * **Static Hosting Layer** (Vite Dev Server/CDN)
 ## Architechure flowchart
-![Flowchart](https://github.com/fThAbhishek-Pandey/pdfEditor/blob/main/docs/flowchartpdfEditor.png, "flowchart")
+[Flowchart](https://github.com/fThAbhishek-Pandey/pdfEditor/blob/main/docs/flowchartpdfEditor.png  "flowchart")
+```mermaid
+flowchart TD
+    %% --------- BROWSER / CLIENT ----------
+    subgraph "Browser / Client"
+        subgraph "Static Host (Vite Dev Server / CDN)"
+            VITE["Vite Config"]:::service
+            INDEX["index.html"]:::default
+            VITE -->|"serves"| INDEX
+        end
+        subgraph "React App"
+            MAIN["main.jsx"]:::default
+            APP["App.jsx"]:::default
+            subgraph "State Layer"
+                CONTEXT["EditorContext"]:::state
+            end
+            subgraph "UI Components"
+                TOOLBAR["Toolbar"]:::ui
+                EDITOR["Editor"]:::ui
+                PAGECANVAS["PageCanvas"]:::ui
+                PDFPREVIEW["PDFPreview"]:::ui
+            end
+            subgraph "Services"
+                PDFSERVICE["pdfService"]:::service
+                STORAGESERVICE["storageService"]:::service
+            end
+            ASSETS["Static Assets"]:::external
+        end
+    end
+
+    %% --------- EXTERNAL SYSTEMS ----------
+    subgraph "External Systems"
+        LOCALSTORAGE["localStorage"]:::external
+        PDFJS["PDF.js (Rendering Engine)"]:::external
+    end
+
+    %% --------- EDGES ----------
+    INDEX -->|"loads"| MAIN
+    MAIN -->|"renders"| APP
+    APP -->|"provides context"| CONTEXT
+    TOOLBAR -->|"dispatch action"| CONTEXT
+    EDITOR -->|"read/write state"| CONTEXT
+    PAGECANVAS -->|"read/write state"| CONTEXT
+    PDFPREVIEW -->|"read state"| CONTEXT
+    CONTEXT -->|"render request"| PDFSERVICE
+    CONTEXT -->|"persist state"| STORAGESERVICE
+    STORAGESERVICE -->|"reads/writes"| LOCALSTORAGE
+    PDFSERVICE -->|"uses"| PDFJS
+    APP -->|"loads assets"| ASSETS
+
+    %% --------- CLICKABLE LINKS (GitHub supports this) ----------
+    click VITE "https://github.com/fthabhishek-pandey/pdfeditor/blob/main/frontend/vite.config.js" _blank
+    click INDEX "https://github.com/fthabhishek-pandey/pdfeditor/blob/main/frontend/index.html" _blank
+    click MAIN "https://github.com/fthabhishek-pandey/pdfeditor/blob/main/frontend/src/main.jsx" _blank
+    click APP "https://github.com/fthabhishek-pandey/pdfeditor/blob/main/frontend/src/App.jsx" _blank
+    click CONTEXT "https://github.com/fthabhishek-pandey/pdfeditor/blob/main/frontend/src/contexts/EditorContext.jsx" _blank
+    click TOOLBAR "https://github.com/fthabhishek-pandey/pdfeditor/blob/main/frontend/src/components/Toolbar.jsx" _blank
+    click EDITOR "https://github.com/fthabhishek-pandey/pdfeditor/blob/main/frontend/src/components/Editor/Editor.jsx" _blank
+    click PAGECANVAS "https://github.com/fthabhishek-pandey/pdfeditor/blob/main/frontend/src/components/Editor/PageCanvas.jsx" _blank
+    click PDFPREVIEW "https://github.com/fthabhishek-pandey/pdfeditor/blob/main/frontend/src/components/PDFPreview.jsx" _blank
+    click PDFSERVICE "https://github.com/fthabhishek-pandey/pdfeditor/blob/main/frontend/src/services/pdfService.js" _blank
+    click STORAGESERVICE "https://github.com/fthabhishek-pandey/pdfeditor/blob/main/frontend/src/services/storageService.js" _blank
+    click ASSETS "https://github.com/fthabhishek-pandey/pdfeditor/tree/main/frontend/src/assets" _blank
+
+    %% --------- STYLES ----------
+    classDef ui fill:#AEDFF7,stroke:#0B6FA4,color:#03396C
+    classDef state fill:#C9F0C1,stroke:#2E8B57,color:#006400
+    classDef service fill:#FFD8A8,stroke:#FF8C00,color:#A0522D
+    classDef external fill:#E0E0E0,stroke:#A9A9A9,color:#696969
+    classDef default fill:#FFFFFF,stroke:#CCCCCC,color:#333333
+```
 ---
 
 ## **2. Architecture Diagram**
