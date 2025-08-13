@@ -138,8 +138,5 @@ This project is licensed under the **MIT License** – you’re free to use, mod
 
 **Abhishek Pandey** – [GitHub](https://github.com/fthabhishek-pandey)
 
-```
 
 ---
-
-```
