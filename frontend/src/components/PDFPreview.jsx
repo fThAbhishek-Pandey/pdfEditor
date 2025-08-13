@@ -1,5 +1,5 @@
 /**
- * 
+ * This is a place where you can visuaalise previw of pdf
  * 
  * 
  */
@@ -22,12 +22,13 @@ const PDFPreview = () => {
     setDateField
   } = useContext(EditorContext);
   const [previewqr, setPreviewqr] = useState();
-const handleqr = async()=>{
-  if(!qrCode) return;
+const handleqr = async(qrdata)=>{
+  if(!qrdata) return;
   try {
-    const response = await fetch(`https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(qrCode)}&size=150x150`);
+    const response = await fetch(`https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(qrdata)}&size=150x150`);
     const blob = await response.blob();
     setPreviewqr(URL.createObjectURL(blob));
+    return previewqr;
   } catch (error) {
     console.error("Error generating QR code:", error);
   }
@@ -99,7 +100,8 @@ useEffect(()=>{
               {f.type === "date" && <span>{f.date}</span>}
               {f.type === "qr" && (
                 <img
-                  src={previewqr}
+                  src={()=>handleqr(f.qr)}
+                  
                   alt="QR Code"
                   style={{ width: f.width / 2, height: f.height / 2 }}
                 />

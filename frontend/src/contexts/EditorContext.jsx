@@ -1,3 +1,9 @@
+/**
+ * This is a context api which store the data
+ * 
+ * 
+ */
+
 import { createContext, useEffect, useState, useRef } from "react";
 
 export const EditorContext = createContext();

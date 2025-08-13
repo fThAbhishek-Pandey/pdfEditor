@@ -1,4 +1,4 @@
-//  this is not complete
+//  this is incomplete
 
 
 import React from "react";

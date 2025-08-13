@@ -1,9 +1,10 @@
-/*
+/**
+ * This is editor component in witch all the editing component is simulating. 
+ * 
+ * 
+ */
 
 
-
-
-*/
 import React from "react";
 import PDFPreview from "../PDFPreview.jsx";
 import PageCanvas from "./PageCanvas.jsx";

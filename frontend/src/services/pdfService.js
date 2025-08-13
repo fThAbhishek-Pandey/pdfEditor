@@ -1,3 +1,10 @@
+/**
+ * 
+ * Genarating pdf 
+ * 
+ * 
+ */
+
 import { PDFDocument, rgb, StandardFonts } from "pdf-lib";
 
 const PAGE_WIDTH_PT = 595.28; // A4 width in points

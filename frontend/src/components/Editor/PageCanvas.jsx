@@ -1,6 +1,6 @@
 /**
  *
- *
+ *This is a workspace for editing the pdf.
  */
 import React, { useContext } from "react";
 import { Rnd } from "react-rnd";
