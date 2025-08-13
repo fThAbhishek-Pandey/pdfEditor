@@ -18,6 +18,53 @@ A browser-based **PDF Editor** built with **React**, **Vite**, and **PDF.js** th
 ---
 
 ## 📂 Project Structure
+```mermaid
+flowchart TD
+    subgraph "Browser / Client"
+        subgraph "Static Host (Vite Dev Server / CDN)"
+            VITE["Vite Config"]:::service
+            INDEX["index.html"]:::default
+            VITE -->|"serves"| INDEX
+        end
+        subgraph "React App"
+            MAIN["main.jsx"]:::default
+            APP["App.jsx"]:::default
+            subgraph "State Layer"
+                CONTEXT["EditorContext"]:::state
+            end
+            subgraph "UI Components"
+                TOOLBAR["Toolbar"]:::ui
+                EDITOR["Editor"]:::ui
+                PAGECANVAS["PageCanvas"]:::ui
+                PDFPREVIEW["PDFPreview"]:::ui
+            end
+            subgraph "Services"
+                PDFSERVICE["pdfService"]:::service
+                STORAGESERVICE["storageService"]:::service
+            end
+            ASSETS["Static Assets"]:::external
+        end
+    end
+
+    subgraph "External Systems"
+        LOCALSTORAGE["localStorage"]:::external
+        PDFJS["PDF.js (Rendering Engine)"]:::external
+    end
+
+    INDEX -->|"loads"| MAIN
+    MAIN -->|"renders"| APP
+    APP -->|"provides context"| CONTEXT
+    TOOLBAR -->|"dispatch action"| CONTEXT
+    EDITOR -->|"read/write state"| CONTEXT
+    PAGECANVAS -->|"read/write state"| CONTEXT
+    PDFPREVIEW -->|"read state"| CONTEXT
+    CONTEXT -->|"render request"| PDFSERVICE
+    CONTEXT -->|"persist state"| STORAGESERVICE
+    STORAGESERVICE -->|"reads/writes"| LOCALSTORAGE
+    PDFSERVICE -->|"uses"| PDFJS
+    APP -->|"loads assets"| ASSETS
+```
+---
 ```
 
 frontend/

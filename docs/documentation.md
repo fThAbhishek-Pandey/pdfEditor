@@ -203,9 +203,3 @@ frontend/
 ---
 
 ---
-
-This Markdown can be placed directly in a `README.md` or `ARCHITECTURE.md` for your repo.
-
----
-
-If you want, I can also make a **GitHub-friendly version** where the Mermaid diagram **renders directly in README** and all links stay clickable without extra configs. Would you like me to prepare that next?
