@@ -1,9 +1,10 @@
-/*
+/**
+ * 
+ * 
+ * 
+ */
 
-
-
-*/
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { EditorContext } from "../contexts/EditorContext";
 import { ExportPDF } from "../services/pdfService.js";
 
@@ -18,8 +19,23 @@ const PDFPreview = () => {
     qrCode,
     dateField,
     pageRef,
+    setDateField
   } = useContext(EditorContext);
-
+  const [previewqr, setPreviewqr] = useState();
+const handleqr = async()=>{
+  if(!qrCode) return;
+  try {
+    const response = await fetch(`https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(qrCode)}&size=150x150`);
+    const blob = await response.blob();
+    setPreviewqr(URL.createObjectURL(blob));
+  } catch (error) {
+    console.error("Error generating QR code:", error);
+  }
+}
+useEffect(()=>{
+     console.log()
+     handleqr();
+},[qrCode])
   const handleDownload = async () => {
     if (!bgImage) {
       alert("Please add a background image first.");
@@ -35,6 +51,8 @@ const PDFPreview = () => {
   const handleClear = () => {
     setFields([]);
     setImgFields([]);
+    setQrCode([]);
+    setDateField([]);
   };
 
   return (
@@ -81,9 +99,7 @@ const PDFPreview = () => {
               {f.type === "date" && <span>{f.date}</span>}
               {f.type === "qr" && (
                 <img
-                  src={`https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(
-                    f.qr
-                  )}&size=150x150`}
+                  src={previewqr}
                   alt="QR Code"
                   style={{ width: f.width / 2, height: f.height / 2 }}
                 />

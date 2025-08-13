@@ -59,7 +59,7 @@ const Toolbar = () => {
       {
         id: Date.now(),
         type: "text",
-        text: "Edit me",
+        text: "Edit Me",
         x: 50,
         y: 50,
         width: 200,
@@ -97,6 +97,8 @@ const Toolbar = () => {
       alert("Please enter QR code text first.");
       return;
     }
+
+
     setQrCode((prev) => [
       ...prev,
       {

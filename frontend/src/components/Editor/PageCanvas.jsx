@@ -198,7 +198,7 @@ const PageCanvas = () => {
           ))}
 
           {/* ---------- QR Code Fields ---------- */}
-          {qrCode.map((field) => (
+          {qrCode && qrCode.map((field) => (
             <Rnd
               key={field.id}
               size={{ width: field.width, height: field.height }}
@@ -222,7 +222,9 @@ const PageCanvas = () => {
             >
               <div style={fieldContainerStyle}>
                 <img
-                  src={field.qr}
+                  src={`https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(
+                    field.qr
+                  )}&size=150x150`}
                   alt="QR Code"
                   className="max-w-full max-h-full object-contain"
                 />
